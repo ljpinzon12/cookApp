@@ -8,6 +8,7 @@ import { Tasks } from '../api/tasks.js';
 import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Landing from './Landing.jsx';
+import NewRecipe from './NewRecipe.jsx';
 
 // App component - represents the whole app
 class App extends Component {
@@ -15,44 +16,12 @@ class App extends Component {
     super(props);
 
     this.state = {
-      hideCompleted: false,
+      currentPage: 'Landing',
     };
   }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    // Find the text field via the React ref
-    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-
-    Meteor.call('tasks.insert', text);
-
-    // Clear form
-    ReactDOM.findDOMNode(this.refs.textInput).value = '';
-  }
-
-  toggleHideCompleted() {
+  toggleCreateRecipe() {
     this.setState({
-      hideCompleted: !this.state.hideCompleted,
-    });
-  }
-
-  renderTasks() {
-    let filteredTasks = this.props.tasks;
-    if (this.state.hideCompleted) {
-      filteredTasks = filteredTasks.filter(task => !task.checked);
-    }
-    return filteredTasks.map((task) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = task.owner === currentUserId;
-
-      return (
-        <Task
-          key={task._id}
-          task={task}
-          showPrivateButton={showPrivateButton}
-        />
-      );
+      currentPage: 'CreateRecipe',
     });
   }
 
@@ -65,11 +34,14 @@ class App extends Component {
             <div className="navTitle"> 
               the food venue
             </div>
+            <button aria-label="Add a new routine"  className="textBtn" onClick={this.toggleCreateRecipe.bind(this)}>ADD ROUTINE</button>
             <input type="text" placeholder="Search..." />
             <AccountsUIWrapper />
           </div>
         </header>
-        <Landing />
+        {true ? console.log(this.state.currentPage === 'Landing') : ''}
+        {this.state.currentPage === 'Landing' ?  <Landing /> : ''}
+        {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe /> : ''}
         <div className="footer">
         </div>
       </div>

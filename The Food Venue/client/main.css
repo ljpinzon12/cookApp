@@ -29,6 +29,10 @@ input:focus {
 .autoH {
   height: auto;
 }
+.textBtn {
+  background-color: red;
+  color: white;
+}
 /**
 
 Navbar

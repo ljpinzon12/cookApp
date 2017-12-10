@@ -28,6 +28,7 @@ export default class Landing extends Component {
                 Whether you’re looking for some healthy inspiration or learning how to cook a decadent dessert, 
                 we’ve trustworthy guidance for all your foodie needs.
             </div>
+            <button>See all recipes</button>
           </div>
         </div>
         <div className="section autoH bgImg2">
