@@ -7,6 +7,7 @@ import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+import Landing from './Landing.jsx';
 
 // App component - represents the whole app
 class App extends Component {
@@ -59,34 +60,18 @@ class App extends Component {
     return (
       <div className="container">
         <header>
-          <h1>Todo List ({this.props.incompleteCount})</h1>
-
-          <label className="hide-completed">
-            <input
-              type="checkbox"
-              readOnly
-              checked={this.state.hideCompleted}
-              onClick={this.toggleHideCompleted.bind(this)}
-            />
-            Hide Completed Tasks
-          </label>
-
-          <AccountsUIWrapper />
-
-          { this.props.currentUser ?
-            <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-              <input
-                type="text"
-                ref="textInput"
-                placeholder="Type to add new tasks"
-              />
-            </form> : ''
-          }
+          <div className="navbar">
+            <img src="logo.svg" alt="" />
+            <div className="navTitle"> 
+              the food venue
+            </div>
+            <input type="text" placeholder="Search..." />
+            <AccountsUIWrapper />
+          </div>
         </header>
-
-        <ul>
-          {this.renderTasks()}
-        </ul>
+        <Landing />
+        <div className="footer">
+        </div>
       </div>
     );
   }
