@@ -39,7 +39,6 @@ class App extends Component {
             <AccountsUIWrapper />
           </div>
         </header>
-        {true ? console.log(this.state.currentPage === 'Landing') : ''}
         {this.state.currentPage === 'Landing' ?  <Landing /> : ''}
         {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe /> : ''}
         <div className="footer">
