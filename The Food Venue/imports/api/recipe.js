@@ -14,7 +14,7 @@ if (Meteor.isServer) {
 
 Meteor.methods({
     'recipes.insert'(name, description, process,video, ingredients) {
-        check(purpose, String);
+        check(name, String);
     
         if (!this.userId) {
           throw new Meteor.Error('not-authorized');
