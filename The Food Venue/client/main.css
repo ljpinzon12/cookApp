@@ -54,19 +54,51 @@ Navbar
   vertical-align: middle;
   height: 60%;
 }
-.navbar > input {
-  vertical-align: middle;
-  border: none;
-  font-size: 1.5em;
-  border-bottom: 1px solid #e0e0e0;
-  margin-right: 10%;
-}
+
 .navTitle {
   vertical-align: middle;
   font-family: 'Abril Fatface', cursive;
   display: inline-block;
   margin: 0 5% 0 1%;
   font-size: 1.2em;
+}
+.navbar > button {
+  border: none;
+  border-radius: 0;
+  background-color: black;
+  color: white;
+  padding: 0 1%;
+  height: 90%;
+  vertical-align: middle;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  margin-right: 2%;
+  transition: all 0.25s;
+}
+.navbar > button:nth-child(3) {
+  margin-right:1%;
+}
+.navbar > button:hover {
+  cursor: pointer;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+}
+/**
+
+Footer
+
+*/
+.footer {
+  margin: 2vh 0;
+  vertical-align: middle;
+  text-align: center;
+  width: 100vw;
+  color: #c5c5c5;
+}
+.footer > span {
+  display: inline-block;
+  vertical-align: middle;
 }
 /**
 
