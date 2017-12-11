@@ -35,5 +35,30 @@ Meteor.methods({
           country,
         });
       }
-  ,
+  ,'recipes.comment'(userId, text, recipeId) {
+    check(text, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    var comment = {
+        text,
+        userId
+    };
+    Recipes.update(recipeId, { $addToSet: { comments: comment } });
+  }
+,
+'recipes.rate'( vote, recipeId) {
+    check(text, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const chef2 = Recipes.findOne(recipeId);
+    var rate = ((chef2.rating + vote)/2) ;
+   
+    Recipes.update(recipeId, { $set: { rating: rate } });
+  }
+,
 });

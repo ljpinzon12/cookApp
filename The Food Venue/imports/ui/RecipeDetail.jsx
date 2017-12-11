@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
 
@@ -8,17 +9,32 @@ export default class RecipeDetail extends Component {
     super(props);
     this.state = {
       rating: 5,
+      comment: '',
     };
     this.viewUser = this.viewUser.bind(this);
     this.updateRating = this.updateRating.bind(this);
+    this.updateComment = this.updateComment.bind(this);
   }
   viewUser(idR) {
     this.props.goUser(idR);
   }
   updateRating(newVal) {
     this.setState({
-      rating: newVal.value
+      rating: newVal.target.value
     });
+  }
+  updateComment(newVal){
+    this.setState({
+      comment: newVal.target.value
+    });
+  } 
+  comment(){
+    console.log(this.state.comment)
+    Meteor.call('recipes.comment',this.props.curUser._id, this.state.comment, this.props.recipe_id)
+  }
+
+  rate(){
+    Meteor.call('recipes.rate',this.state.rating, this.props.recipe_id);
   }
   render() {
     return (
@@ -29,13 +45,13 @@ export default class RecipeDetail extends Component {
             <div onClick={() => { this.viewUser(this.props.recipe.userID) }} className="txt1">{this.props.recipe.username}</div>
             <div className="rating">{this.props.recipe.rating}
               <img src="/favorite.png" alt="" /></div>
-            <select name="rating" value={this.state.rating} onChange={this.updateRating} ref="rating">
+            <select name="rating" ref="ratevalueSelect"  value={this.state.rating} onChange={this.updateRating} ref="rating">
               <option value="5">5</option>
               <option value="4">4</option>
               <option value="3">3</option>
               <option value="3">2</option>
               <option value="3">1</option>
-            </select><button>RATE</button>
+            </select><button onClick={() => { this.rate() }} >RATE</button>
           </div>
         </div>
         <div id="recipDesc" className="section autoH">
@@ -55,8 +71,8 @@ export default class RecipeDetail extends Component {
           </div>
         </div>
         <div className="newComment">
-          <input type="text" placeholder="Write a new comment..." />
-          <button>SEND</button>
+          <input type="text" value={this.state.comment} onChange={this.updateComment} placeholder="Write a new comment..." />
+          <button onClick={() => { this.comment() }} >SEND</button>
         </div>
         <div className="comments">
           {this.props.recipe.comments.map((comment) => {
@@ -73,4 +89,5 @@ export default class RecipeDetail extends Component {
 RecipeDetail.propTypes = {
   recipe: PropTypes.object.isRequired,
   goUser: PropTypes.func.isRequired,
+  curUser: PropTypes.object.isRequired,
 };

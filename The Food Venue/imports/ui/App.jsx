@@ -64,7 +64,7 @@ class App extends Component {
   showRecipe() {
     const currentRecipe = Recipes.findOne({ _id: this.state.currentRecipe});
     return (
-      <RecipeDetail recipe={currentRecipe} goUser={this.toggleProfileID}/>
+      <RecipeDetail recipe={currentRecipe} goUser={this.toggleProfileID} curUser={this.props.currentUser}/>
     );
   }
   toggleMyProfile() {

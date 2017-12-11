@@ -13,6 +13,7 @@ export default class RecipesView extends Component {
             filterCategory: 'name',
           };
           this.getRecipe = this.getRecipe.bind(this);
+          this.udpateSelect = this.udpateSelect.bind(this);
     }
     searchFood() {
         event.preventDefault();
@@ -28,7 +29,7 @@ export default class RecipesView extends Component {
     }
     udpateSelect(newVal) {
         this.setState({
-            filterCategory: newVal.value
+            filterCategory: newVal.target.value
         });
     }
     render() {
