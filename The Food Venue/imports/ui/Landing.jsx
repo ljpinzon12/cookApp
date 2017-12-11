@@ -15,7 +15,7 @@ export default class Landing extends Component {
           <div className="txt1">
             The perfect place to find and enjoy good recipes
           </div>
-          <button>see all recipes</button>
+          <button onClick={this.props.recipes}>see all recipes</button>
         </div>
         </div>
         <div className="section">
@@ -57,3 +57,6 @@ export default class Landing extends Component {
     );
   }
 }
+Landing.propTypes = {
+  recipes: PropTypes.func.isRequired,
+};

@@ -4,14 +4,16 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { Tasks } from '../api/tasks.js';
-import{Chefs} from '../api/chef.js'
+import { Chefs } from '../api/chef.js';
+import { Recipes } from '../api/recipe.js';
 
 
 import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Landing from './Landing.jsx';
 import NewRecipe from './NewRecipe.jsx';
-import Recipe from './Recipe.jsx';
+import RecipesView from './RecipesView.jsx';
+import RecipeDetail from './RecipeDetail.jsx';
 import NewUser from './NewUser.jsx';
 import Chef from './Chef.jsx';
 
@@ -22,7 +24,10 @@ class App extends Component {
 
     this.state = {
       currentPage: 'Landing',
+      currentRecipe: '',
     };
+    this.toggleShowRecipes = this.toggleShowRecipes.bind(this);
+    this.toggleRecipeDetail = this.toggleRecipeDetail.bind(this);
   }
   toggleCreateRecipe() {
     this.setState({
@@ -38,48 +43,37 @@ class App extends Component {
       }
     }
   }
+  toggleLanding() {
+    this.setState({
+      currentPage: 'Landing',
+    });
+  }
   toggleShowRecipes() {
     this.setState({
       currentPage: 'Recipes',
     });
   }
-  renderRecipes() {
-    let i = 0;
-    return this.props.recipes.map((recipe) => {
-      i++;
-      return (
-        <Recipe key={recipe._id} recipe={recipe} num={i}/>
-      );
-    })
-  }
-  renderTasks() {
-    let filteredTasks = this.props.tasks;
-    if (this.state.hideCompleted) {
-      filteredTasks = filteredTasks.filter(task => !task.checked);
-    }
-    return filteredTasks.map((task) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = task.owner === currentUserId;
-
-      return (
-        <Task
-          key={task._id}
-          task={task}
-          showPrivateButton={showPrivateButton}
-        />
-      );
-    });
-  }
   showProfile(userId) {
-    const currentChef = Chefs.findOne({userID:userId});
-    console.log(currentChef);
+    const currentChef = Chefs.findOne({ userID: userId });
     return (
       <Chef chef={currentChef} user={this.props.currentUser} />
+    );
+  }
+  showRecipe() {
+    const currentRecipe = Recipes.findOne({ _id: this.state.currentRecipe});
+    return (
+      <RecipeDetail recipe={currentRecipe} />
     );
   }
   toggleMyProfile() {
     this.setState({
       currentPage: 'Chef',
+    });
+  }
+  toggleRecipeDetail(recipeId) {
+    this.setState({
+      currentPage: 'RecipeDetail',
+      currentRecipe: recipeId,
     });
   }
   render() {
@@ -88,20 +82,21 @@ class App extends Component {
         {this.incompleteUser() ? '' : ''}
         <header>
           <div className="navbar">
-            <img src="logo.svg" alt="" />
-            <div className="navTitle"> 
+            <img onClick={this.toggleLanding.bind(this)} src="logo.svg" alt="" />
+            <div onClick={this.toggleLanding.bind(this)} className="navTitle">
               the food venue
             </div>
             <button aria-label="Search a recipe" onClick={this.toggleShowRecipes.bind(this)}>SEE ALL RECIPES</button>
-            { this.props.currentUser ? <span> <button aria-label="Add a new recipe"  onClick={this.toggleCreateRecipe.bind(this)}>ADD RECIPE</button> <button aria-label="See my profile"  onClick={this.toggleMyProfile.bind(this)}>MY PROFILE</button></span> : '' }
+            {this.props.currentUser ? <span> <button aria-label="Add a new recipe" onClick={this.toggleCreateRecipe.bind(this)}>ADD RECIPE</button> <button aria-label="See my profile" onClick={this.toggleMyProfile.bind(this)}>MY PROFILE</button></span> : ''}
             <AccountsUIWrapper />
           </div>
         </header>
-        {this.state.currentPage === 'Landing' ?  <Landing /> : ''}
-        {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe  user={this.props.user} /> : ''}
-        {this.state.currentPage === 'incompleteUser'? <NewUser /> : ''}
-        {this.state.currentPage === 'Recipes' ?  this.renderRecipes.bind(this) : ''}
-        {this.state.currentPage === 'Chef' ?  this.showProfile(this.props.currentUser._id) : ''}
+        {this.state.currentPage === 'Landing' ? <Landing recipes={this.toggleShowRecipes} /> : ''}
+        {this.state.currentPage === 'CreateRecipe' ? <NewRecipe user={this.props.user} /> : ''}
+        {this.state.currentPage === 'incompleteUser' ? <NewUser /> : ''}
+        {this.state.currentPage === 'Recipes' ? <RecipesView recipes={this.props.recipes} viewRecipe={this.toggleRecipeDetail} /> : ''}
+        {this.state.currentPage === 'Chef' ? this.showProfile(this.props.currentUser._id) : ''}
+        {this.state.currentPage === 'RecipeDetail' ? this.showRecipe() : ''}
         <div className="footer">
           <span>
             2017 The Food Venue. Sas Zero rights reserved. The Food Venue is not a registered service mark of The Food Venue. Sas.
@@ -113,7 +108,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  user:PropTypes.object,
+  user: PropTypes.object,
   currentUser: PropTypes.object,
 };
 
@@ -122,15 +117,16 @@ export default createContainer(() => {
   Meteor.subscribe('chefs');
   Meteor.subscribe('recipes');
   if (Meteor.user()) {
-    
+
     return {
-      user: Chefs.findOne({userID: Meteor.user()._id }),
+      user: Chefs.findOne({ userID: Meteor.user()._id }),
       currentUser: Meteor.user(),
+      recipes: Recipes.find({}, { sort: { rating: -1 } }).fetch(),
     }
   } else {
     return {
       currentUser: Meteor.user(),
-
+      recipes: Recipes.find({}, { sort: { rating: -1 } }).fetch(),
     }
   }
 }, App);

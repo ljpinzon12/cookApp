@@ -4,22 +4,45 @@ import classnames from 'classnames';
 
 // Task component - represents a single todo item
 export default class Recipe extends Component {
+  constructor(props) {
+    super(props);
 
+    this.goRecipe = this.goRecipe.bind(this);
+  }
+  goRecipe(idR) {
+    this.props.viewRecipe(idR);
+  }
   render() {
+    let recipeClass = '';
+    if (this.props.num > 2) {
+      recipeClass = 'smallRecipe';
+    } else if (this.props.num === 2) {
+      recipeClass = 'bigRecipe recipe3';
+    } else if (this.props.num === 1) {
+      recipeClass = 'bigRecipe recipe2';
+    } else {
+      recipeClass = 'bigRecipe recipe1';
+    }
     return (
-      <div className="container">
-        { this.props.num > 3 ? 
-          div.smal
-          
-          :''}
+      <div onClick={this.goRecipe(this.props.recipe._id)} className={recipeClass}>
+        <div className="recipeContent">
+          <div className="rating">
+            {this.props.recipe.rating}
+            <img src="/favorite.png" alt="" />
+          </div>
+          <div className="title1">
+            {this.props.recipe.name}
+          </div>
+          <div className="text1">
+            {this.props.recipe.username}
+          </div>
+        </div>
       </div>
     );
   }
 }
-
 Recipe.propTypes = {
-  // This component gets the task to display through a React prop.
-  // We can use propTypes to indicate it is required
   recipe: PropTypes.object.isRequired,
-  num: React.PropTypes.bool.isRequired,
+  num: React.PropTypes.number.isRequired,
+  viewRecipe: PropTypes.func.isRequired,
 };
