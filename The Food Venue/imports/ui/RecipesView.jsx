@@ -26,12 +26,17 @@ export default class RecipesView extends Component {
     getRecipe(recipeID) {
         this.props.viewRecipe(recipeID);
     }
+    udpateSelect(newVal) {
+        this.setState({
+            filterCategory: newVal.value
+        });
+    }
     render() {
         return (
             <div>
                 <div className="searchBar">
                     <input ref="filterText" type="text" placeholder="Search..." />
-                    <select name="filterCategory" value={this.state.filterCategory} ref="filterCategory">
+                    <select name="filterCategory" value={this.state.filterCategory} onChange={this.udpateSelect} ref="filterCategory">
                         <option value="name">Name</option>
                         <option value="country">Country</option>
                         <option value="food">Food Type</option>

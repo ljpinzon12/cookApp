@@ -9,7 +9,6 @@ export default class Chef extends Component {
     constructor(props) {
         super(props);
 
-
     }
 
     isFollowing() {
@@ -95,13 +94,13 @@ export default class Chef extends Component {
                     <label htmlFor="">Biography:</label>
                     {this.props.chef.description}
                 </div>
-                {this.props.user._id != this.props.chef.userID && this.isFollowing() ?
+                {this.props.user && (this.props.user._id != this.props.chef.userID && this.isFollowing()) ?
                 
                  <button aria-label="Send new comment" onClick={this.follow(this.props.chef._id)} >Follow</button>
 
                 : ''}
 
-                {this.props.user._id != this.props.chef.userID && this.isFollowing() ?
+                {this.props.user && (this.props.user._id != this.props.chef.userID && this.isFollowing()) ?
                 
                  <button aria-label="Send new comment" onClick={this.unfollow(this.props.chef._id)} >Unfollow</button>
 
@@ -122,7 +121,6 @@ export default class Chef extends Component {
 
 Chef.propTypes = {
     chef: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
 };
 
 

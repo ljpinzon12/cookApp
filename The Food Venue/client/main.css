@@ -3,6 +3,16 @@
 App
 
 **/
+
+
+@font-face {
+  font-family: 'Abril Fatface';
+  src: local('Butler'),
+  local('Butler'),
+  url('fonts/Butler.ttf') format('truetype');
+}
+
+
 body {
   overflow-x: hidden;
   margin: 0;
@@ -66,6 +76,7 @@ Navbar
 .navbar > img:hover {
   cursor: pointer;
 }
+.navbar > span > button,
 .navbar > button {
   border: none;
   border-radius: 0;
@@ -79,10 +90,12 @@ Navbar
   margin-right: 2%;
   transition: all 0.25s;
 }
+.navbar > span > button:nth-child(3),
 .navbar > button:nth-child(3) {
   margin-right:1%;
 }
-.navbar > button:hover {
+.navbar > span > button:hover,
+.navbar > button:hover  {
   cursor: pointer;
   border: 1px solid black;
   background-color: white;
@@ -337,4 +350,98 @@ Recipes
 .searchBar > button:hover {
   cursor: pointer;
   padding: 1% 3.2%;
+}
+/**
+
+Recipe
+
+**/
+.bgRecipe {
+  background: url(recipeImg.jpg) no-repeat fixed center center; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.bgRecipe::after {
+  content:'';
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  z-index: 0;
+}
+.recipeDescription {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10%;
+  color: white;
+  z-index: 1;
+}
+.recipeDescription > .title1 {
+  font-size: 8em;
+}
+.recipeDescription > .txt1 {
+  font-size: 4em;
+} 
+.recipeDescription > .txt1:hover {
+  cursor: pointer;
+} 
+.recipeDescription > .rating {
+  font-size: 2em;
+}
+ul {
+  margin: 0;
+  background-color: black;
+  min-height: 5vh;
+  padding: 5vh 5%;
+  font-size: 1.5em;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  color: white;
+}
+#recipDesc > iframe {
+  margin: 0;
+  width: 80vw;
+  height: 35vw;
+  border-right: 10vw solid black;
+  border-left: 10vw solid black;
+  border-bottom: 10vh solid black;
+}
+.description {
+  min-height: 10vh;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 0.5vh solid black;
+  line-height: 10vh;
+}
+.description > .txt1 {
+  display: inline-block;
+  vertical-align: middle;
+}
+.newComment > input {
+  width: 80%;
+  margin: 0;
+  height: 5vh;
+  font-size: 1.5em;
+}
+.newComment > button {
+  vertical-align: top;
+  width: 19.5%;
+  height: 5.5vh;
+  border: none;
+  border-radius: 0;
+  background-color: black;
+  color: white;
+  transition: all 0.25s;
+}
+.newComment > button:hover {
+  cursor: pointer;
+  background-color: white;
+  border: 5px solid black;
+  color: black;
+}
+.comments {
+  width: 100%;
 }

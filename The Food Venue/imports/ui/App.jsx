@@ -25,9 +25,11 @@ class App extends Component {
     this.state = {
       currentPage: 'Landing',
       currentRecipe: '',
+      currentChef: '',
     };
     this.toggleShowRecipes = this.toggleShowRecipes.bind(this);
     this.toggleRecipeDetail = this.toggleRecipeDetail.bind(this);
+    this.toggleProfileID = this.toggleProfileID.bind(this);
   }
   toggleCreateRecipe() {
     this.setState({
@@ -62,7 +64,7 @@ class App extends Component {
   showRecipe() {
     const currentRecipe = Recipes.findOne({ _id: this.state.currentRecipe});
     return (
-      <RecipeDetail recipe={currentRecipe} />
+      <RecipeDetail recipe={currentRecipe} goUser={this.toggleProfileID}/>
     );
   }
   toggleMyProfile() {
@@ -75,6 +77,18 @@ class App extends Component {
       currentPage: 'RecipeDetail',
       currentRecipe: recipeId,
     });
+  }
+  toggleProfileID(userID) {
+    this.setState({
+      currentPage: 'ChefDetail',
+      currentChef: userID,
+    });
+  }
+  showChefDetail() {
+    const currentChef = Chefs.findOne({ userID: this.state.currentChef });
+    return (
+      <Chef chef={currentChef} user={this.props.currentUser} />
+    );
   }
   render() {
     return (
@@ -97,6 +111,7 @@ class App extends Component {
         {this.state.currentPage === 'Recipes' ? <RecipesView recipes={this.props.recipes} viewRecipe={this.toggleRecipeDetail} /> : ''}
         {this.state.currentPage === 'Chef' ? this.showProfile(this.props.currentUser._id) : ''}
         {this.state.currentPage === 'RecipeDetail' ? this.showRecipe() : ''}
+        {this.state.currentPage === 'ChefDetail' ? this.showChefDetail() : ''}
         <div className="footer">
           <span>
             2017 The Food Venue. Sas Zero rights reserved. The Food Venue is not a registered service mark of The Food Venue. Sas.
