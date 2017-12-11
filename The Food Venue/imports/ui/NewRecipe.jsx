@@ -76,7 +76,7 @@ export default class NewRecipe extends Component {
   }
   addRecipe() {
     event.preventDefault();
-    
+
     const name = ReactDOM.findDOMNode(this.refs.recipeName).value.trim();
     const description = ReactDOM.findDOMNode(this.refs.recipeDescription).value.trim();
     const process = ReactDOM.findDOMNode(this.refs.recipeProcess).value.trim();
@@ -84,7 +84,7 @@ export default class NewRecipe extends Component {
     const country = ReactDOM.findDOMNode(this.refs.recipeCountry).value.trim();
     const typeOfFood = ReactDOM.findDOMNode(this.refs.recipeTypeOfFood).value.trim();
 
-    Meteor.call('recipes.insert', name, description, process, video, this.state.ingredients);
+    Meteor.call('recipes.insert',this.props.user.userID ,name, description, process, video, this.state.ingredients);
   }
 
 
@@ -417,5 +417,7 @@ NewRecipe.propTypes = {
   // This component gets the task to display through a React prop.
   // We can use propTypes to indicate it is required
   //task: PropTypes.object.isRequired,
-  //showPrivateButton: React.PropTypes.bool.isRequired,
+  //showPrivateButton: React.PropTypes.bool.isRequired
+
+  user: PropTypes.object.isRequired,
 };

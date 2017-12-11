@@ -13,7 +13,7 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'recipes.insert'(name, description, process,video, ingredients) {
+    'recipes.insert'(userId, name, description, process,video, ingredients) {
         check(name, String);
     
         if (!this.userId) {
@@ -22,7 +22,7 @@ Meteor.methods({
     
         Recipes.insert({
           name,
-          userID: this.userId,
+          userID: userId,
           username: Meteor.users.findOne(this.userId).username,
           createdAt: new Date(),
           description,

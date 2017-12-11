@@ -70,6 +70,13 @@ class App extends Component {
       );
     });
   }
+  showProfile(userId) {
+    const currentChef = Chefs.findOne({userID:userId});
+    console.log(currentChef);
+    return (
+      <Chef chef={currentChef} user={this.props.currentUser} />
+    );
+  }
   toggleMyProfile() {
     this.setState({
       currentPage: 'Chef',
@@ -91,10 +98,10 @@ class App extends Component {
           </div>
         </header>
         {this.state.currentPage === 'Landing' ?  <Landing /> : ''}
-        {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe /> : ''}
+        {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe  user={this.props.user} /> : ''}
         {this.state.currentPage === 'incompleteUser'? <NewUser /> : ''}
         {this.state.currentPage === 'Recipes' ?  this.renderRecipes.bind(this) : ''}
-        {this.state.currentPage === 'Chef' ?  <Chef chef_id={this.props.currentUser._id}/> : ''}
+        {this.state.currentPage === 'Chef' ?  this.showProfile(this.props.currentUser._id) : ''}
         <div className="footer">
           <span>
             2017 The Food Venue. Sas Zero rights reserved. The Food Venue is not a registered service mark of The Food Venue. Sas.

@@ -23,8 +23,9 @@ export default class NewUser extends Component {
         const phone = ReactDOM.findDOMNode(this.refs.userPhone).value.trim();
         const age = ReactDOM.findDOMNode(this.refs.userAge).value.trim();
         const gender = ReactDOM.findDOMNode(this.refs.userGender).value.trim();
+        const description = ReactDOM.findDOMNode(this.refs.userDescription).value.trim();
     
-        Meteor.call('chefs.insert', name, country, email, phone,age,gender);
+        Meteor.call('chefs.insert', name, country, email, phone,age,gender, description);
     
   }
 
@@ -309,6 +310,8 @@ export default class NewUser extends Component {
               <option value="female">Female</option>
               <option value="male">Male</option>
             </select>
+            <label for="description">Self description: </label><input name="description" type="text"  ref="userDescription" aria-label="Description  user" required />
+          <br />
          <button type="submit" aria-label="Add user information" >SAVE INFORMATION</button> 
         </form>
       </div>
