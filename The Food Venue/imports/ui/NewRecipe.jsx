@@ -84,7 +84,7 @@ export default class NewRecipe extends Component {
     const country = ReactDOM.findDOMNode(this.refs.recipeCountry).value.trim();
     const typeOfFood = ReactDOM.findDOMNode(this.refs.recipeTypeOfFood).value.trim();
 
-    Meteor.call('recipes.insert',this.props.user.userID ,name, description, process, video, this.state.ingredients);
+    Meteor.call('recipes.insert',this.props.user.userID ,name, description, process, video, this.state.ingredients,typeOfFood);
   }
 
 

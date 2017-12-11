@@ -296,9 +296,9 @@ export default class NewUser extends Component {
             <option value="Zimbabwe">Zimbabwe</option>
           </select>
           <br />
-          <label for="email">E-mail: </label><input name="email" type="text" ref="userEmail" aria-label="User email" required />
+          <label for="email">E-mail: </label><input name="email" type="email" ref="userEmail" aria-label="User email" required />
           <br />
-          <label for="phone">Phone: </label><input name="phone" type="text" ref="userPhone" aria-label="User phone" required />
+          <label for="phone">Phone: </label><input name="phone" type="number" minlength="7" ref="userPhone" aria-label="User phone" required />
           <br />
           <label for="age">Age: </label><input name="age" type="number"  min="18" ref="userAge" aria-label="Age  user" required />
           <br />
