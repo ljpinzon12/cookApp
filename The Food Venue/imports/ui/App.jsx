@@ -27,10 +27,19 @@ class App extends Component {
       currentPage: 'CreateRecipe',
     });
   }
-
+  incompleteUser() {
+    if (this.state.currentPage != 'incompleteUser') {
+      if (!this.props.user && this.props.currentUser) {
+        this.setState({
+          currentPage: 'incompleteUser',
+        });
+      }
+    }
+  }
   render() {
     return (
       <div className="container">
+        {this.incompleteUser() ? '' : ''}
         <header>
           <div className="navbar">
             <img src="logo.svg" alt="" />
@@ -44,7 +53,7 @@ class App extends Component {
         </header>
         {this.state.currentPage === 'Landing' ?  <Landing /> : ''}
         {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe /> : ''}
-        {!this.props.user && this.props.currentUser ? <NewUser /> : ''}
+        {this.state.currentPage === 'incompleteUser'? <NewUser /> : ''}
         <div className="footer">
         </div>
       </div>
@@ -53,6 +62,7 @@ class App extends Component {
 }
 
 App.propTypes = {
+  user:PropTypes.object,
   currentUser: PropTypes.object,
 };
 
@@ -61,6 +71,7 @@ export default createContainer(() => {
   Meteor.subscribe('chefs');
   Meteor.subscribe('recipes');
   if (Meteor.user()) {
+    
     return {
       user: Chefs.findOne({userID: Meteor.user()._id }),
       currentUser: Meteor.user(),
