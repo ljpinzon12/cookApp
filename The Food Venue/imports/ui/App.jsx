@@ -11,6 +11,7 @@ import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Landing from './Landing.jsx';
 import NewRecipe from './NewRecipe.jsx';
+import Recipe from './Recipe.jsx';
 import NewUser from './NewUser.jsx';
 
 // App component - represents the whole app
@@ -36,6 +37,39 @@ class App extends Component {
       }
     }
   }
+  toggleShowRecipes() {
+    this.setState({
+      currentPage: 'Recipes',
+    });
+  }
+  renderRecipes() {
+    let i = 0;
+    return this.props.recipes.map((recipe) => {
+      i++;
+      return (
+        <Recipe key={recipe._id} recipe={recipe} num={i}/>
+      );
+    })
+  }
+  renderTasks() {
+    let filteredTasks = this.props.tasks;
+    if (this.state.hideCompleted) {
+      filteredTasks = filteredTasks.filter(task => !task.checked);
+    }
+    return filteredTasks.map((task) => {
+      const currentUserId = this.props.currentUser && this.props.currentUser._id;
+      const showPrivateButton = task.owner === currentUserId;
+
+      return (
+        <Task
+          key={task._id}
+          task={task}
+          showPrivateButton={showPrivateButton}
+        />
+      );
+    });
+  }
+
   render() {
     return (
       <div className="container">
@@ -46,15 +80,19 @@ class App extends Component {
             <div className="navTitle"> 
               the food venue
             </div>
-            <button aria-label="Add a new routine"  className="textBtn" onClick={this.toggleCreateRecipe.bind(this)}>ADD ROUTINE</button>
-            <input type="text" placeholder="Search..." />
+            <button aria-label="Search a recipe" onClick={this.toggleShowRecipes.bind(this)}>SEE ALL RECIPES</button>
+            { this.props.currentUser ? <button aria-label="Add a new recipe"  onClick={this.toggleCreateRecipe.bind(this)}>ADD RECIPE</button> : '' }
             <AccountsUIWrapper />
           </div>
         </header>
         {this.state.currentPage === 'Landing' ?  <Landing /> : ''}
         {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe /> : ''}
         {this.state.currentPage === 'incompleteUser'? <NewUser /> : ''}
+        {this.state.currentPage === 'Recipes' ?  this.renderRecipes.bind(this) : ''}
         <div className="footer">
+          <span>
+            2017 The Food Venue. Sas Zero rights reserved. The Food Venue is not a registered service mark of The Food Venue. Sas.
+          </span>
         </div>
       </div>
     );
