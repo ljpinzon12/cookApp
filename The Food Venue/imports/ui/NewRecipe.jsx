@@ -361,7 +361,7 @@ export default class NewRecipe extends Component {
           <br />
           <label for="process">Process: </label><input name="process" type="text" ref="recipeProcess" aria-label="Recipe process cook" required />
           <br />
-          <label for="urlVideo">Video url: </label><input name="urlVideo" type="text" ref="recipeVideo" aria-label="Recipe video url" required />
+          <label for="urlVideo">Video code youtube: </label><input name="urlVideo" type="text" ref="recipeVideo" aria-label="Recipe video url" required />
           <br />
 
           {this.renderNewRecipe()}

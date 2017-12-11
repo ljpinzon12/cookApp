@@ -64,8 +64,8 @@ export default class Chef extends Component {
             const r = Recipes.find({ userID: this.props.chef.userID });
             
             return r.map((recipe) => {
-                    var i = recipe.video +  "&output=embed" ;
-                return (
+                    var i = "https://www.youtube.com/embed/" + recipe.video + "?autoplay=0" ;
+                    return (
                     <div>
                     <iframe width="200" height="150" src={i}>
                     </iframe>
