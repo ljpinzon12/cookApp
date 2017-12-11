@@ -6,10 +6,11 @@ import classnames from 'classnames';
 export default class RecipeDetail extends Component {
 
   render() {
+    return (
     <div>
       {console.log(this.props.recipe)}
       Hola
-    </div>
+    </div> )
   }
 }
 RecipeDetail.propTypes = {

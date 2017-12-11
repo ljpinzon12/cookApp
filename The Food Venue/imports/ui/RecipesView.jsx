@@ -42,18 +42,18 @@ export default class RecipesView extends Component {
                     if (this.state.filterCategory === 'name') {
                         if (recipe.name.includes(this.state.filterTxt)) {
                             return (
-                                <Recipe key={recipe._id} recipe={recipe} num={i} viewRecipe={this.getRecipe} />
+                                <Recipe key={recipe._id} recipe={recipe} num={i} seeRecipe={this.getRecipe} />
                             );
                         }
                     } else if (this.state.filterCategory === 'country') {
                         if (recipe.country.includes(this.state.filterTxt)) {
                             return (
-                                <Recipe key={recipe._id} recipe={recipe} num={i} viewRecipe={this.getRecipe} />
+                                <Recipe key={recipe._id} recipe={recipe} num={i} seeRecipe={this.getRecipe} />
                             );
                         }
                     } else {
                         return (
-                            <Recipe key={recipe._id} recipe={recipe} num={i} viewRecipe={this.getRecipe}/>
+                            <Recipe key={recipe._id} recipe={recipe} num={i} seeRecipe={this.getRecipe}/>
                         );
                     }
                 })}

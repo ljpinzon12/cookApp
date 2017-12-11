@@ -10,7 +10,7 @@ export default class Recipe extends Component {
     this.goRecipe = this.goRecipe.bind(this);
   }
   goRecipe(idR) {
-    this.props.viewRecipe(idR);
+    this.props.seeRecipe(idR);
   }
   render() {
     let recipeClass = '';
@@ -24,7 +24,7 @@ export default class Recipe extends Component {
       recipeClass = 'bigRecipe recipe1';
     }
     return (
-      <div onClick={this.goRecipe(this.props.recipe._id)} className={recipeClass}>
+      <div onClick={() => { this.goRecipe(this.props.recipe._id) }} className={recipeClass}>
         <div className="recipeContent">
           <div className="rating">
             {this.props.recipe.rating}
@@ -44,5 +44,5 @@ export default class Recipe extends Component {
 Recipe.propTypes = {
   recipe: PropTypes.object.isRequired,
   num: React.PropTypes.number.isRequired,
-  viewRecipe: PropTypes.func.isRequired,
+  seeRecipe: PropTypes.func.isRequired,
 };
