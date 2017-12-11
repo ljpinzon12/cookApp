@@ -87,7 +87,7 @@ class App extends Component {
   showChefDetail() {
     const currentChef = Chefs.findOne({ userID: this.state.currentChef });
     return (
-      <Chef chef={currentChef} user={this.props.currentUser} />
+      <Chef chef={currentChef} user={this.props.currentUser} viewRecipe={this.toggleRecipeDetail} />
     );
   }
   render() {
