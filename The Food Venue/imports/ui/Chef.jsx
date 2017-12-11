@@ -8,25 +8,28 @@ export default class Chef extends Component {
 
     constructor(props) {
         super(props);
-
+        this.goRecipe = this.goRecipe.bind(this);
     }
+    goRecipe(idR) {
+        this.props.viewRecipe(idR);
+      }
 
     isFollowing() {
 
-        for ( i = 0; i < this.props.chef.following.length; i++) {
-            if (this.props.chef.following[i].userID == this.props.user._id )
-              return true;
-          }
-          return false;
-       
+        for (i = 0; i < this.props.chef.following.length; i++) {
+            if (this.props.chef.following[i].userID == this.props.user._id)
+                return true;
+        }
+        return false;
+
     }
 
-    follow(id){
+    follow(id) {
         Meteor.call('chefs.follow', id);
         Meteor.call('chefs.followMy', id);
     }
 
-    unfollow(id){
+    unfollow(id) {
         Meteor.call('chefs.unfollow', id);
         Meteor.call('chefs.unfollowMy', id);
     }
@@ -37,19 +40,20 @@ export default class Chef extends Component {
             event.preventDefault();
 
             const r = Recipes.find({ userID: this.props.chef.userID });
-            
+
             return r.map((recipe) => {
 
                 return (
-                    <div>
-                    <h3>{recipe.name}</h3>
-                    <br />
-                    <label for="description">Description: {recipe.description} </label>
-                    <br />
-                    <label for="name">Rating: {recipe.rating} </label>
-                    <button key={recipe._id} aria-label="See this recipe" className=""  ></button>
+                    <div className="smallRecipe" onClick={() => { this.goRecipe(recipe._id) }}>
+                        <div className="recipeContent">
+                            <div className="title1">{recipe.name}</div>
+                            <br />
+                            <div className="txt1"><b>Description:</b> {recipe.description} </div>
+                            <br />
+                            <div className="rating">{recipe.rating}<img src="/favorite.png" alt="" /> </div>
+                        </div>
                     </div>
-                    );
+                );
             });
 
         }
@@ -61,15 +65,15 @@ export default class Chef extends Component {
             event.preventDefault();
 
             const r = Recipes.find({ userID: this.props.chef.userID });
-            
+
             return r.map((recipe) => {
-                    var i = "https://www.youtube.com/embed/" + recipe.video + "?autoplay=0" ;
-                    return (
-                    <div>
-                    <iframe width="200" height="150" src={i}>
-                    </iframe>
+                var i = "https://www.youtube.com/embed/" + recipe.video + "?autoplay=0";
+                return (
+                    <div className="videoProfile">
+                        <iframe src={i}>
+                        </iframe>
                     </div>
-                    );
+                );
             });
 
         }
@@ -77,42 +81,36 @@ export default class Chef extends Component {
     render() {
         return (
             <div className="chef">
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-
-                <div>
-                    <label htmlFor="">Name:</label>
-                    <h1>{this.props.chef.name}</h1>
-                    <br />
-                    <label htmlFor="">Rating:</label>
-                    {this.props.chef.rating}
-                    <br />
-                    <label htmlFor="">Biography:</label>
-                    {this.props.chef.description}
+                <div className="section bgProfile">
+                    <div className="profileInfo">
+                        <div className="title1">{this.props.chef.name}</div>
+                        <br />
+                        <div className="rating">
+                            {this.props.chef.rating} <img src="/favorite.png" alt="" /></div>
+                        <br />
+                        <div className="txt1">
+                            {this.props.chef.description}</div>
+                    </div>
                 </div>
                 {this.props.user && (this.props.user._id != this.props.chef.userID && this.isFollowing()) ?
-                
-                 <button aria-label="Send new comment" onClick={this.follow(this.props.chef._id)} >Follow</button>
 
-                : ''}
+                    <button aria-label="Send new comment" onClick={this.follow(this.props.chef._id)} >Follow</button>
+
+                    : ''}
 
                 {this.props.user && (this.props.user._id != this.props.chef.userID && this.isFollowing()) ?
-                
-                 <button aria-label="Send new comment" onClick={this.unfollow(this.props.chef._id)} >Unfollow</button>
 
-                : ''}
+                    <button aria-label="Send new comment" onClick={this.unfollow(this.props.chef._id)} >Unfollow</button>
+
+                    : ''}
 
                 {this.renderReceips()}
 
                 {this.renderVideos()}
 
-                
-                
-           
+
+
+
 
             </div>
         );
@@ -121,6 +119,7 @@ export default class Chef extends Component {
 
 Chef.propTypes = {
     chef: PropTypes.object.isRequired,
+    viewRecipe: PropTypes.func.isRequired,
 };
 
 

@@ -95,8 +95,8 @@ export default class NewRecipe extends Component {
     // });
 
     return (
-      <div>
-        New Recipe
+      <div className="forms">
+        <div className="title1">New Recipe</div>
           <form onSubmit={this.addRecipe.bind(this)}>
           <br /><br /><br /><br />
           <label for="name">Name: </label><input name="name" type="text" ref="recipeName" aria-label="Recipe name" required />
@@ -363,7 +363,7 @@ export default class NewRecipe extends Component {
           <br />
 
           {this.renderNewRecipe()}
-          <div>
+          <div className="ingredient">
 
             <label for="ingredientName">Name:</label><input
               required

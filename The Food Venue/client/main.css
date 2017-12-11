@@ -4,15 +4,6 @@ App
 
 **/
 
-
-@font-face {
-  font-family: 'Abril Fatface';
-  src: local('Butler'),
-  local('Butler'),
-  url('fonts/Butler.ttf') format('truetype');
-}
-
-
 body {
   overflow-x: hidden;
   margin: 0;
@@ -444,4 +435,118 @@ ul {
 }
 .comments {
   width: 100%;
+}
+
+/**
+
+Profile
+
+**/
+
+.bgProfile {
+  background: url(profile.jpg) no-repeat fixed center center; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin-bottom: 2vh;
+}
+.bgProfile::after {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  content: '';
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 0;
+}
+.profileInfo {
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: white;
+  z-index: 1;
+}
+.profileInfo > .title1 {
+  font-size: 6em;
+}
+.profileInfo > .rating {
+  font-size: 4em;
+}
+.profileInfo > .txt1 {
+  font-size: 2em;
+}
+.forms {
+  width: 50%;
+  margin: 10vh auto 2vh auto;
+  padding: 5%;
+  box-shadow: 0px 0px 73px 0px rgba(0, 0, 0, 0.15);
+}
+.forms > .title1 {
+  font-size: 5em;
+}
+form > label,
+.ingredient > label {
+  font-size: 1.2em;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  display: inline-block;
+  width: 30%;
+  margin: 1%;
+  color: rgb(136, 136, 136);
+}
+form > input,
+.ingredient > input {
+  font-size: 1.4em;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid black;
+  width: 65%;
+}
+form > select,
+.ingredient > select {
+  border: 1px solid black;
+  border-radius: 0;
+  width: 65%;
+  font-size: 1.4em;
+  background-color: white;
+}
+form > button {
+  text-align: right;
+  background-color: black;
+  padding:2% 5%;
+  border-radius: 0;
+  border: none;
+  color: white;
+  transition: all 0.25s;
+  margin-top: 5%;
+}
+form > button:hover {
+  cursor: pointer;
+  padding: 2.5% 5.5%;
+}
+.videoProfile > iframe {
+  width: 20vw;
+  height: 15vw;
+  display: inline-block;
+}
+.videoProfile {
+  display: inline-block;
+  margin: 2%;
+}
+.comm {
+  width: 80%;
+  margin: 0 auto;
+  box-shadow: 0px 0px 73px 0px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  vertical-align: middle;
+}
+.comm > .title1 {
+  vertical-align: middle;
+  display: inline-block;
+}
+.comm > .txt1 {
+  vertical-align: middle;
+  display: inline-block;
 }
