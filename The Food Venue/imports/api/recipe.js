@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
-import { console } from 'meteor/tools';
 
 export const Recipes = new Mongo.Collection('recipes');
 
@@ -36,7 +35,7 @@ Meteor.methods({
           country,
         });
       }
-  ,'recipes.comment'(userId, text, recipeId) {
+  ,'recipes.comment'(nameUser, text, recipeId) {
     check(text, String);
 
     if (!this.userId) {
@@ -44,15 +43,14 @@ Meteor.methods({
     }
 
     var comment = {
-        text,
-        userId
+        coment: text,
+        name: nameUser,
     };
-    
     Recipes.update(recipeId, { $addToSet: { comments: comment } });
   }
 ,
 'recipes.rate'( vote, recipeId) {
-    check(text, String);
+    check(recipeId, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');

@@ -29,12 +29,14 @@ export default class RecipeDetail extends Component {
     });
   } 
   comment(){
-    console.log(this.state.comment)
-    Meteor.call('recipes.comment',this.props.curUser._id, this.state.comment, this.props.recipe_id)
+    Meteor.call('recipes.comment',this.props.curUser.username, this.state.comment, this.props.recipe._id)
+    this.setState({
+      comment: '',
+    });
   }
 
   rate(){
-    Meteor.call('recipes.rate',this.state.rating, this.props.recipe_id);
+    Meteor.call('recipes.rate',this.state.rating, this.props.recipe._id);
   }
   render() {
     return (
@@ -76,10 +78,10 @@ export default class RecipeDetail extends Component {
         </div>
         <div className="comments">
           {this.props.recipe.comments.map((comment) => {
-            <div className="comm">
-              <div className="title1">{comment.user}</div>
-              <div className="txt1">{comment.content}</div>
-            </div>
+            return (<div className="comm">
+              <div className="title1">{comment.name}</div> <br />
+              <div className="txt1">{comment.coment}</div>
+            </div>)
           })}
         </div>
 
