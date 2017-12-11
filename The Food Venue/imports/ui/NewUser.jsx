@@ -10,9 +10,11 @@ export default class NewUser extends Component {
 
     this.state = {
     };
-
+    this.toggleLand = this.toggleLand.bind(this);
   }
-
+  toggleLand() {
+      this.props.togLanding();
+  }
   addUser(){
 
         
@@ -25,7 +27,7 @@ export default class NewUser extends Component {
         const description = ReactDOM.findDOMNode(this.refs.userDescription).value.trim();
     
         Meteor.call('chefs.insert', name, country, email, phone,age,gender, description);
-    
+        this.toggleLand();
   }
 
   render() {
@@ -320,8 +322,5 @@ export default class NewUser extends Component {
 }
 
 NewUser.propTypes = {
-  // This component gets the task to display through a React prop.
-  // We can use propTypes to indicate it is required
-  //task: PropTypes.object.isRequired,
-  //showPrivateButton: React.PropTypes.bool.isRequired,
+    togLanding: React.PropTypes.func.isRequired,
 };

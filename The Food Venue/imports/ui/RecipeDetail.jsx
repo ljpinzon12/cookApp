@@ -64,7 +64,7 @@ export default class RecipeDetail extends Component {
             })}
           </ul>
           <iframe
-            src={this.props.recipe.video}>
+            src={"https://www.youtube.com/embed/" + this.props.recipe.video + "?autoplay=0"}>
           </iframe>
           <div className="description">
             <div className="txt1">{this.props.recipe.description}</div>

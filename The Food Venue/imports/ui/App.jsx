@@ -30,6 +30,7 @@ class App extends Component {
     this.toggleShowRecipes = this.toggleShowRecipes.bind(this);
     this.toggleRecipeDetail = this.toggleRecipeDetail.bind(this);
     this.toggleProfileID = this.toggleProfileID.bind(this);
+    this.toggleLanding = this.toggleLanding.bind(this);
   }
   toggleCreateRecipe() {
     this.setState({
@@ -107,7 +108,7 @@ class App extends Component {
         </header>
         {this.state.currentPage === 'Landing' ? <Landing recipes={this.toggleShowRecipes} /> : ''}
         {this.state.currentPage === 'CreateRecipe' ? <NewRecipe user={this.props.user} /> : ''}
-        {this.state.currentPage === 'incompleteUser' ? <NewUser /> : ''}
+        {this.state.currentPage === 'incompleteUser' ? <NewUser togLanding={this.toggleLanding} /> : ''}
         {this.state.currentPage === 'Recipes' ? <RecipesView recipes={this.props.recipes} viewRecipe={this.toggleRecipeDetail} /> : ''}
         {this.state.currentPage === 'Chef' ? this.showProfile(this.props.currentUser._id) : ''}
         {this.state.currentPage === 'RecipeDetail' ? this.showRecipe() : ''}

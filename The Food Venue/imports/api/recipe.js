@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { console } from 'meteor/tools';
 
 export const Recipes = new Mongo.Collection('recipes');
 
@@ -46,6 +47,7 @@ Meteor.methods({
         text,
         userId
     };
+    
     Recipes.update(recipeId, { $addToSet: { comments: comment } });
   }
 ,
