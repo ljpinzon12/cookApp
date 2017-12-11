@@ -11,11 +11,8 @@ import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Landing from './Landing.jsx';
 import NewRecipe from './NewRecipe.jsx';
-<<<<<<< HEAD
 import Recipe from './Recipe.jsx';
-=======
 import NewUser from './NewUser.jsx';
->>>>>>> 1a435f3dc196aa1dff26cf2f19cc146e3081771d
 
 // App component - represents the whole app
 class App extends Component {
@@ -80,11 +77,8 @@ class App extends Component {
         </header>
         {this.state.currentPage === 'Landing' ?  <Landing /> : ''}
         {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe /> : ''}
-<<<<<<< HEAD
         {this.state.currentPage === 'Recipes' ?  this.renderRecipes.bind(this) : ''}
-=======
         {!this.props.user && this.props.currentUser ? <NewUser /> : ''}
->>>>>>> 1a435f3dc196aa1dff26cf2f19cc146e3081771d
         <div className="footer">
           <span>
             2017 The Food Venue. Sas Zero rights reserved. The Food Venue is not a registered service mark of The Food Venue. Sas.
