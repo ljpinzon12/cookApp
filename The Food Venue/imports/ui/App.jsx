@@ -13,7 +13,7 @@ import Landing from './Landing.jsx';
 import NewRecipe from './NewRecipe.jsx';
 import Recipe from './Recipe.jsx';
 import NewUser from './NewUser.jsx';
-import Profile from './Profile.jsx';
+import Chef from './Chef.jsx';
 
 // App component - represents the whole app
 class App extends Component {
@@ -28,6 +28,15 @@ class App extends Component {
     this.setState({
       currentPage: 'CreateRecipe',
     });
+  }
+  incompleteUser() {
+    if (this.state.currentPage != 'incompleteUser') {
+      if (!this.props.user && this.props.currentUser) {
+        this.setState({
+          currentPage: 'incompleteUser',
+        });
+      }
+    }
   }
   toggleShowRecipes() {
     this.setState({
@@ -63,12 +72,13 @@ class App extends Component {
   }
   toggleMyProfile() {
     this.setState({
-      currentPage: 'Profile',
+      currentPage: 'Chef',
     });
   }
   render() {
     return (
       <div className="container">
+        {this.incompleteUser() ? '' : ''}
         <header>
           <div className="navbar">
             <img src="logo.svg" alt="" />
@@ -76,15 +86,15 @@ class App extends Component {
               the food venue
             </div>
             <button aria-label="Search a recipe" onClick={this.toggleShowRecipes.bind(this)}>SEE ALL RECIPES</button>
-            { this.props.currentUser ? <button aria-label="Add a new recipe"  onClick={this.toggleCreateRecipe.bind(this)}>ADD RECIPE</button> <button aria-label="See my profile"  onClick={this.toggleMyProfile.bind(this)}>MY PROFILE</button> : '' }
+            { this.props.currentUser ? <span> <button aria-label="Add a new recipe"  onClick={this.toggleCreateRecipe.bind(this)}>ADD RECIPE</button> <button aria-label="See my profile"  onClick={this.toggleMyProfile.bind(this)}>MY PROFILE</button></span> : '' }
             <AccountsUIWrapper />
           </div>
         </header>
         {this.state.currentPage === 'Landing' ?  <Landing /> : ''}
         {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe /> : ''}
+        {this.state.currentPage === 'incompleteUser'? <NewUser /> : ''}
         {this.state.currentPage === 'Recipes' ?  this.renderRecipes.bind(this) : ''}
-        {!this.props.user && this.props.currentUser ? <NewUser /> : ''}
-        {this.state.currentPage === 'Profile' ?  <Profile /> : ''}
+        {this.state.currentPage === 'Chef' ?  <Chef chef_id={this.props.currentUser._id}/> : ''}
         <div className="footer">
           <span>
             2017 The Food Venue. Sas Zero rights reserved. The Food Venue is not a registered service mark of The Food Venue. Sas.
@@ -96,6 +106,7 @@ class App extends Component {
 }
 
 App.propTypes = {
+  user:PropTypes.object,
   currentUser: PropTypes.object,
 };
 
@@ -104,6 +115,7 @@ export default createContainer(() => {
   Meteor.subscribe('chefs');
   Meteor.subscribe('recipes');
   if (Meteor.user()) {
+    
     return {
       user: Chefs.findOne({userID: Meteor.user()._id }),
       currentUser: Meteor.user(),
