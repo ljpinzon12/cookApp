@@ -75,8 +75,6 @@ export default class NewRecipe extends Component {
     });
   }
   addRecipe() {
-    event.preventDefault();
-
     const name = ReactDOM.findDOMNode(this.refs.recipeName).value.trim();
     const description = ReactDOM.findDOMNode(this.refs.recipeDescription).value.trim();
     const process = ReactDOM.findDOMNode(this.refs.recipeProcess).value.trim();

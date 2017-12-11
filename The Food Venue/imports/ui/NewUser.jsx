@@ -14,8 +14,7 @@ export default class NewUser extends Component {
   }
 
   addUser(){
-   
-        event.preventDefault();
+
         
         const name = ReactDOM.findDOMNode(this.refs.userName).value.trim();
         const country = ReactDOM.findDOMNode(this.refs.userCountry).value.trim();
