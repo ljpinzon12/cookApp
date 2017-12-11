@@ -13,6 +13,7 @@ import Landing from './Landing.jsx';
 import NewRecipe from './NewRecipe.jsx';
 import Recipe from './Recipe.jsx';
 import NewUser from './NewUser.jsx';
+import Profile from './Profile.jsx';
 
 // App component - represents the whole app
 class App extends Component {
@@ -60,7 +61,11 @@ class App extends Component {
       );
     });
   }
-
+  toggleMyProfile() {
+    this.setState({
+      currentPage: 'Profile',
+    });
+  }
   render() {
     return (
       <div className="container">
@@ -71,7 +76,7 @@ class App extends Component {
               the food venue
             </div>
             <button aria-label="Search a recipe" onClick={this.toggleShowRecipes.bind(this)}>SEE ALL RECIPES</button>
-            { this.props.currentUser ? <button aria-label="Add a new recipe"  onClick={this.toggleCreateRecipe.bind(this)}>ADD RECIPE</button> : '' }
+            { this.props.currentUser ? <button aria-label="Add a new recipe"  onClick={this.toggleCreateRecipe.bind(this)}>ADD RECIPE</button> <button aria-label="See my profile"  onClick={this.toggleMyProfile.bind(this)}>MY PROFILE</button> : '' }
             <AccountsUIWrapper />
           </div>
         </header>
@@ -79,6 +84,7 @@ class App extends Component {
         {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe /> : ''}
         {this.state.currentPage === 'Recipes' ?  this.renderRecipes.bind(this) : ''}
         {!this.props.user && this.props.currentUser ? <NewUser /> : ''}
+        {this.state.currentPage === 'Profile' ?  <Profile /> : ''}
         <div className="footer">
           <span>
             2017 The Food Venue. Sas Zero rights reserved. The Food Venue is not a registered service mark of The Food Venue. Sas.

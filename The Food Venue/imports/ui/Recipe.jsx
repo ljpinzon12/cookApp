@@ -7,14 +7,17 @@ export default class Recipe extends Component {
 
   render() {
     return (
-      <div className="recipe">
-        { this.props.num > 3 ? '' :''}
+      <div className="container">
+        { this.props.num > 3 ? 
+          div.smal
+          
+          :''}
       </div>
     );
   }
 }
 
-Task.propTypes = {
+Recipe.propTypes = {
   // This component gets the task to display through a React prop.
   // We can use propTypes to indicate it is required
   recipe: PropTypes.object.isRequired,
