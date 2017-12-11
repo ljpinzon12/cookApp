@@ -13,7 +13,7 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'recipes.insert'(userId, name, description, process,video, ingredients,typeOfFood) {
+    'recipes.insert'(userId, name, description, process,video, ingredients,typeOfFood , country) {
         check(name, String);
     
         if (!this.userId) {
@@ -32,6 +32,7 @@ Meteor.methods({
           video,
           ingredients,
           typeOfFood,
+          country,
         });
       }
   ,
