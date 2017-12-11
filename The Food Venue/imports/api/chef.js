@@ -13,7 +13,7 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'recipes.insert'( name, country, email, phone,age,gender) {
+    'chefs.insert'( name, country, email, phone,age,gender) {
         check(name, String);
     
         if (!this.userId) {
@@ -32,5 +32,16 @@ Meteor.methods({
           gender,
         });
       }
-  ,
+  , 'chefs.searchByUserName' (id) {
+    
+            console.log(id);
+            if (!id) {
+                throw new Meteor.Error('not-authorized');
+            }
+    
+            return Exercisers.findOne({
+                userID: id
+            });
+    
+        },
 });

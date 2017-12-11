@@ -4,11 +4,14 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { Tasks } from '../api/tasks.js';
+import{Chefs} from '../api/chef.js'
+
 
 import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Landing from './Landing.jsx';
 import NewRecipe from './NewRecipe.jsx';
+import NewUser from './NewUser.jsx';
 
 // App component - represents the whole app
 class App extends Component {
@@ -41,6 +44,7 @@ class App extends Component {
         </header>
         {this.state.currentPage === 'Landing' ?  <Landing /> : ''}
         {this.state.currentPage === 'CreateRecipe' ?  <NewRecipe /> : ''}
+        {!this.props.user && this.props.currentUser ? <NewUser /> : ''}
         <div className="footer">
         </div>
       </div>
@@ -49,17 +53,22 @@ class App extends Component {
 }
 
 App.propTypes = {
-  tasks: PropTypes.array.isRequired,
-  incompleteCount: PropTypes.number.isRequired,
   currentUser: PropTypes.object,
 };
 
 export default createContainer(() => {
   Meteor.subscribe('tasks');
+  Meteor.subscribe('chefs');
+  Meteor.subscribe('recipes');
+  if (Meteor.user()) {
+    return {
+      user: Chefs.findOne({userID: Meteor.user()._id }),
+      currentUser: Meteor.user(),
+    }
+  } else {
+    return {
+      currentUser: Meteor.user(),
 
-  return {
-    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
-    currentUser: Meteor.user(),
-  };
+    }
+  }
 }, App);
