@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
+//imports sin usar, como import classnames from 'classnames';
+//es importante tambien dejar el codigo limpio e ir quitando cosas que no se va a usar
+
+//Buena identacion
 
 // Task component - represents a single todo item
 export default class Landing extends Component {
@@ -57,6 +61,7 @@ export default class Landing extends Component {
     );
   }
 }
+//Muy bien por utilizar proptypes
 Landing.propTypes = {
   recipes: PropTypes.func.isRequired,
 };
